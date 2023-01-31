@@ -1,0 +1,6 @@
+@import "./variables";
+
+%container {
+    max-width: $cont-width;
+    margin: $auto-center;
+}

@@ -1,0 +1,212 @@
+@import "../modules/variables";
+@import "../modules/classes";
+@import "../modules/mixins";
+@import "./responsive";
+
+body::-webkit-scrollbar {
+    width: 10px;
+}
+body::-webkit-scrollbar-track {
+    background-color: rgb(240, 240, 240);
+}
+body::-webkit-scrollbar-thumb {
+    background-color: $main-color;
+    border-radius: 5px;
+}
+img {
+    width: 100%;
+}
+body {
+    color: $text-color;
+}
+
+// Header
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: $bg-color;
+    box-shadow: 0 1px 4px hsl(0 4% 15% / 10);
+    z-index: 100;
+    .nav {
+        @include display (flex);
+        @include flex-property (space-between, center);
+        padding: 20px 0;
+        @include responsive (desktop-lg) { padding: 15px 0; };
+        @include responsive (phone-port-lg) { padding: 11px 0; };
+    }
+    .container {
+        @extend %container;
+        .logo {
+            @include text-property (1.1rem, $poppins, $text-color, $capit);
+            @include responsive (phone-port-lg) { font-size: 1rem; };
+        }
+        #cart-icon {
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        .cart {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 360px;
+            min-height: 100vh;
+            padding: 20px;
+            background: $bg-color;
+            box-shadow: -2px 0 4px hsl(0 4% 15% / 10%);
+            transition: 0.7s;
+            &.active {
+                right: 0;
+            }
+            @include responsive (phone-port-lg) { width: 320px; };
+            @include responsive (phone-port-md) { width: 280px; };
+            .cart-title {
+                @include text-property (1.5rem, $poppins, $text-color, $capit);
+                font-weight: $semiBold;
+                text-align: center;
+                margin-top: 2rem;
+            }
+            .cart-content {
+                .cart-box {
+                    @include display (grid);
+                    grid-template-columns: 32% 50% 18%;
+                    align-items: center;
+                    gap: 1rem;
+                    margin-top: 1rem;
+                    .cart-img {
+                        width: 100px;
+                        height: 100px;
+                        object-fit: contain;
+                        padding: 10px;
+                    }
+                    .detail-box {
+                        @include display (grid);
+                        row-gap: 0.5rem;
+                        .cart-product-title {
+                            @include text-property (1rem, $poppins, $text-color, $upper);
+                        }
+                        .cart-price {
+                            @include text-property (none, $poppins, $text-color, none);
+                            font-weight: $medium;
+                        }
+                        .cart-quantity {
+                            border: 1px solid $text-color;
+                            border-radius: 2px;
+                            outline-color: $main-color;
+                            width: 2.4rem;
+                            text-align: center;
+                            font-size: 1rem;
+                        }
+                    }
+                    .cart-remove {
+                        font-size: 24px;
+                        color: $main-color;
+                        cursor: pointer;
+                    }
+                }
+            }
+            .total {
+                @include display (flex);
+                justify-content: flex-end;
+                margin-top: 1.5rem;
+                border-top: 1px solid $text-color;
+                .total-title {
+                    @include text-property (1rem, $poppins, $text-color, $capit);
+                    font-weight: $semiBold;
+                    margin-top: 10px;
+                }
+                .total-price {
+                    font-family: $poppins;
+                    margin: 10px 0 0 0.5rem;
+                }
+            }
+            .btn-buy {
+                @include display (flex);
+                margin: 1.5rem auto 0 auto;
+                padding: 12px 20px;
+                border: none;
+                background: $main-color;
+                @include text-property (1rem, $poppins, $bg-color, $capit);
+                font-weight: $medium;
+                cursor: pointer;
+                transition: 0.4s ease;
+                &:hover {
+                    background: $text-color;
+                }
+            }
+            #close-cart {
+                position: absolute;
+                top: 1rem;
+                right: 0.8rem;
+                font-size: 2rem;
+                color: $text-color;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+// Section
+section {
+    padding: 4rem 0 3rem;
+    @include responsive (desktop-lg) { padding: 3rem 0 2rem; };
+}
+.shop {
+    margin-top: 2rem !important;
+    @include responsive (phone-port-md) { margin-top: 1rem !important; };
+}
+.container {
+    @extend %container;
+    @include responsive (desktop-lg) { margin: 0 auto; width: 90%; };
+    .section-title {
+        @include text-property (1.5rem, $poppins, $text-color, $capit);
+        font-weight: $semiBold;
+        text-align: center;
+        margin-bottom: 2rem;
+        @include responsive (phone-port-md) {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+    }
+    .shop-content {
+        @include display (grid);
+        grid-template-columns: repeat(auto-fit, minmax(220px, auto));
+        gap: 1.5rem;
+        .product-box {
+            position: relative;
+            &:hover {
+                padding: 10px;
+                border: 1px solid $text-color;
+                transition: 0.4s ease;
+            }
+            .product-img {
+                width: 100%;
+                height: auto;
+                margin-bottom: 0.5rem;
+            }
+            .product-title {
+                @include text-property (1.1rem, $poppins, $text-color, $upper);
+                font-weight: $semiBold;
+                margin-bottom: 0.5rem;
+            }
+            .price {
+                font-family: $poppins;
+                font-weight: $medium;
+                color: $text-color;
+            }
+            .add-cart {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                background-color: $text-color;
+                color: $bg-color;
+                padding: 10px;
+                cursor: pointer;
+                &:hover {
+                   background: hsl(249, 32%, 17%); 
+                }
+            }
+        }
+    }
+}
